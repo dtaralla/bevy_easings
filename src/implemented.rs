@@ -1,4 +1,6 @@
 use bevy::prelude::*;
+#[cfg(feature = "ui")]
+use bevy::ui::UiRect;
 
 use interpolation::Lerp;
 
@@ -81,11 +83,11 @@ impl Lerp for EaseValue<Style> {
 }
 
 #[cfg(feature = "ui")]
-impl Lerp for EaseValue<Rect<Val>> {
+impl Lerp for EaseValue<UiRect<Val>> {
     type Scalar = f32;
 
     fn lerp(&self, other: &Self, scalar: &Self::Scalar) -> Self {
-        EaseValue(Rect {
+        EaseValue(UiRect {
             left: EaseValue(self.0.left)
                 .lerp(&EaseValue(other.0.left), scalar)
                 .0,
